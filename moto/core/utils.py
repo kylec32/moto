@@ -146,6 +146,9 @@ class convert_flask_to_httpretty_response(object):
             result = self.callback(request, request.url, {})
         except ClientError as exc:
             result = 400, {}, exc.response["Error"]["Message"]
+        except NotImplementedError as not_implemented:
+            result = 501, {}, "NotImplementedError"
+
         # result is a status, headers, response tuple
         if len(result) == 3:
             status, headers, content = result

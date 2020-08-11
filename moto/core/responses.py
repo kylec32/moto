@@ -397,8 +397,6 @@ class BaseResponse(_TemplateEnvironmentMixin, ActionAuthenticatorMixin):
                 response = method()
             except HTTPException as http_error:
                 response = http_error.description, dict(status=http_error.code)
-            except NotImplementedError as not_implemented:
-                response = not_implemented.description, dict(status=501)
 
             if isinstance(response, six.string_types):
                 return 200, headers, response
